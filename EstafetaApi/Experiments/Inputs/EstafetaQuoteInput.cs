@@ -6,5 +6,6 @@
         public int CPDestino { get; set; }
         public string cTipoEnvio { get; set; }
         public string Tipo { get; set; }
+        public string hdfTipo { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace EstafetaApi.Controllers
             {
                 cTipoEnvio = "sobre",
                 Tipo = "sobre",
+                hdfTipo = "sobre",
                 CPOrigen = 87140,
                 CPDestino = 87500
             });
