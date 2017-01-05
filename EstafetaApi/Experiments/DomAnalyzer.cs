@@ -37,9 +37,12 @@ namespace EstafetaApi.Experiments
 
 
 
-        public object GetQuoteResutsFromHtml(DomAnalyzer domAnalyzer)
+        public object GetQuoteResutsFromHtml(string fullHtml)
         {
             throw new System.NotImplementedException();
         }
+
+        private
+
     }
 }
