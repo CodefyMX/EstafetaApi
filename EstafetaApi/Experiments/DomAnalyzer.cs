@@ -42,7 +42,5 @@ namespace EstafetaApi.Experiments
             throw new System.NotImplementedException();
         }
 
-        private
-
     }
 }
