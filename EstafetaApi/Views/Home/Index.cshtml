@@ -1,0 +1,81 @@
+﻿@{ ViewBag.Title = "Home Page"; }
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <legend>Estafeta Api Test</legend>
+            <h2>
+                Tracking
+            </h2>
+
+            <h3>End Point:</h3>
+
+            <pre><code>/Api/Rastreo/?codigo=[trackCode]&tipo=[type]</code></pre>
+
+
+
+
+            <div class="form-group">
+                <label class="control-label">
+                    Code type
+                </label>
+
+                <select id="option" class="form-control" required="required">
+                    <option value="1">22 Digits (For now)</option>
+                </select>
+                <label class="control-label">
+                    Code
+                </label>
+                <input type="text" id="code" class="form-control">
+
+            </div>
+            <button type="button" id="btn" class="btn btn-primary">Send</button>
+
+            <p id="loading" class="hidden">
+                Loading the awesome data.....
+            </p>
+
+        </div>
+    </div>
+
+</div>
+<div class="container">
+    <div class="row">
+        <style>
+            #response {
+                background-color: #f5f5f5;
+            }
+        </style>
+        <div class="col-xs-12" id="response"></div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        (function () {
+            //"5085373039697720012697"
+            var $btn = $("#btn");
+            $btn.click(function () {
+                var code = $("#code").val();
+                var option = $("#option").val();
+                $("#loading").show();
+                var url = "/Api/Rastreo/?codigo=" + code + "&tipo=" + option;
+                $.getJSON(url, function (response) {
+                    $("#loading").hide();
+                    $("#response").text("");
+                    console.log(response);
+                    for (var i = 0; i < response.KeyValues.length; i++) {
+                        var element = response.KeyValues[i];
+                        if (element) {
+                            $("#response").append("<p>Key: " + element.Key + " --- Value: " + element.Value + "</p>");
+                        }
+                    }
+
+
+                });
+            });
+        })();
+
+    </script>
+}
