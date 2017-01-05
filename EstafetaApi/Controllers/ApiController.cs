@@ -17,5 +17,18 @@ namespace EstafetaApi.Controllers
             });
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public async Task<JsonResult> Quote()
+        {
+            var estafetaApi = new Experiments.EstafetaApi();
+            var result = await estafetaApi.Quote(new EstafetaQuoteInput()
+            {
+                cTipoEnvio = "sobre",
+                Tipo = "sobre",
+                CPOrigen = 87140,
+                CPDestino = 87500
+            });
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

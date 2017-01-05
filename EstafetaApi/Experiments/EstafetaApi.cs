@@ -35,24 +35,24 @@ namespace EstafetaApi.Experiments
         public async Task<EstafetaTrackOutput> Track(EstafetaRequest input)
         {
             var domAnalyzer = new DomAnalyzer();
-            var objResult = domAnalyzer.Get22TrackInfoFromHtml(await GetContentFromUrl(input, TrackUrl));
+            var objResult = domAnalyzer.Get22TrackInfoFromHtml(await GetContentFromUrl(input, TrackUrl, new MediaTypeHeaderValue("application/json")));
             return objResult;
         }
 
         public async Task<EstafetaQuoteOutput> Quote(EstafetaQuoteInput input)
         {
             var domAnalyzer = new DomAnalyzer();
-            var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(input, TrackUrl));
+            var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(input, QuoteUrl, new MediaTypeHeaderValue("text/html")));
             return new EstafetaQuoteOutput();
         }
 
-        private async Task<string> GetContentFromUrl<T>(T postObj, string url)
+        private async Task<string> GetContentFromUrl<T>(T postObj, string url, MediaTypeHeaderValue header)
         {
             var httpClient = new HttpClient { BaseAddress = new Uri(url) };
             var obj = JsonConvert.SerializeObject(postObj);
             var buffer = System.Text.Encoding.UTF8.GetBytes(obj);
             var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            byteContent.Headers.ContentType = header;
 
             var result = await httpClient.PostAsync(TrackUrl, byteContent);
             result.EnsureSuccessStatusCode();
