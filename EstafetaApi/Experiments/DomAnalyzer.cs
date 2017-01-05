@@ -8,15 +8,17 @@ namespace EstafetaApi.Experiments
     public class DomAnalyzer
     {
         private string mainSection = "#rastreoContent";
+        private string historySection = ".tablaIconografica2"; // lol
         //16 cols 
         public EstafetaTrackOutput Get22TrackInfoFromHtml(string fullHtml)
         {
             CQ dom = fullHtml;
             var output = new EstafetaTrackOutput() { KeyValues = new List<KeyValue>() };
             //Table or div with the main estafeta info
-            var mainContentDiv = GetMainContentElement(dom);
+            var mainContentDiv = GetMainContentElement(dom, mainSection);
 
             //Working on 05-01-2017 //Sections are divided by tables
+
             var sections = GetSections(mainContentDiv);
             for (int i = 0; i < sections.ToList().Count; i++)
             {
@@ -38,8 +40,55 @@ namespace EstafetaApi.Experiments
                     });
                 }
             }
+
+
+            //This is a div 
+            var historyContent = GetMainContentElement(dom, historySection);
+
+            var allRows = GetHistoryRows(historyContent);
+
+            foreach (var allRow in allRows)
+            {
+                var tds = allRow["td"];
+                var history = new History();
+                for (int i = 0; i < tds.Length; i++)
+                {
+                    //Date
+                    if (i == 0)
+                    {
+                        history.Date = tds[i].InnerText;
+                    }
+                    //Place
+                    if (i == 1)
+                    {
+                        history.Place = tds[i].InnerText;
+                    }
+                    //Comments
+                    if (i == 2)
+                    {
+                        history.Comments = tds[i].InnerText;
+                    }
+                }
+                output.Histories.Add(history);
+            }
+
+
             return output;
 
+        }
+
+        private List<CQ> GetHistoryRows(CQ historyContent)
+        {
+            var cqList = new List<CQ>();
+
+            var table = historyContent.Find("table").First();
+
+            var domObjs = CQ.Create(table.Html())["tr"].Skip(1).ToList();
+            foreach (var domObject in domObjs)
+            {
+                cqList.Add(CQ.Create(domObject));
+            }
+            return cqList;
         }
 
         private List<CQ> GetColumns(CQ table)
@@ -53,9 +102,9 @@ namespace EstafetaApi.Experiments
             return cqList;
         }
 
-        private CQ GetMainContentElement(CQ dom)
+        private CQ GetMainContentElement(CQ dom, string section)
         {
-            var mainElement = dom[mainSection];
+            var mainElement = dom[section];
             return mainElement;
         }
 
