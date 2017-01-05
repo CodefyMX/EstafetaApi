@@ -205,6 +205,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Experiments\DomAnalyzer.cs" />
     <Compile Include="Experiments\EstafetaApi.cs" />
+    <Compile Include="Experiments\Helpers\DomHelpers.cs" />
+    <Compile Include="Experiments\Inputs\EstafetaQuoteInput.cs" />
     <Compile Include="Experiments\Inputs\EstafetaRequest.cs" />
     <Compile Include="Experiments\Outputs\EstafetaQuoteOutput.cs" />
     <Compile Include="Experiments\Outputs\EstafetaTrackOutput.cs" />

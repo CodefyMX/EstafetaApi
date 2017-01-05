@@ -47,9 +47,19 @@ namespace EstafetaApi.Experiments
             return objResult;
         }
 
-        public Task Quote(EstafetaRequest input)
+        public async Task<EstafetaQuoteOutput> Quote(EstafetaQuoteInput input)
         {
-            throw new NotImplementedException();
+            var httpClient = new HttpClient { BaseAddress = new Uri(QuoteUrl) };
+            var obj = JsonConvert.SerializeObject(input);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(obj);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var result = await httpClient.PostAsync(TrackUrl, byteContent);
+            result.EnsureSuccessStatusCode();
+            var domAnalyzer = new DomAnalyzer();
+            var objResult = domAnalyzer.GetQuoteResutsFromHtml(domAnalyzer);
+            return new EstafetaQuoteOutput();
         }
     }
 }
