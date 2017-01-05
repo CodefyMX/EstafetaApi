@@ -34,21 +34,15 @@ namespace EstafetaApi.Experiments
             "http://rastreo3.estafeta.com/RastreoWebInternet/consultaEnvio.do?dispatch=doComprobanteEntrega&guiaEst=";
         public async Task<EstafetaTrackOutput> Track(EstafetaRequest input)
         {
-            var obj = JsonConvert.SerializeObject(input);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(obj);
-            var byteContent = new ByteArrayContent(buffer);
             var domAnalyzer = new DomAnalyzer();
-            var objResult = domAnalyzer.Get22TrackInfoFromHtml(await GetContentFromUrl(byteContent, TrackUrl));
+            var objResult = domAnalyzer.Get22TrackInfoFromHtml(await GetContentFromUrl(input, TrackUrl));
             return objResult;
         }
 
         public async Task<EstafetaQuoteOutput> Quote(EstafetaQuoteInput input)
         {
-            var obj = JsonConvert.SerializeObject(input);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(obj);
-            var byteContent = new ByteArrayContent(buffer);
             var domAnalyzer = new DomAnalyzer();
-            var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(byteContent, TrackUrl));
+            var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(input, TrackUrl));
             return new EstafetaQuoteOutput();
         }
 
