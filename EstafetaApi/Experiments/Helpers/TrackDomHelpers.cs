@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace EstafetaApi.Experiments.Helpers
 {
-    public static class DomHelpers
+    public static class TrackDomHelpers
     {
         public static List<CQ> GetHistoryRows(CQ historyContent)
         {
@@ -82,7 +82,7 @@ namespace EstafetaApi.Experiments.Helpers
                 //Get the table
                 var table = sections[i];
                 //Get the table columns
-                var columns = DomHelpers.GetColumns(CQ.Create(table));
+                var columns = TrackDomHelpers.GetColumns(CQ.Create(table));
 
                 foreach (var domObject in columns)
                 {

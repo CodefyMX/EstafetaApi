@@ -15,21 +15,21 @@ namespace EstafetaApi.Experiments
             var output = new EstafetaTrackOutput();
 
             //Table or div with the main estafeta info
-            var mainContentDiv = DomHelpers.GetMainContentElement(dom, mainSection);
+            var mainContentDiv = TrackDomHelpers.GetMainContentElement(dom, mainSection);
 
             //Working on 05-01-2017 //Sections are divided by tables
 
-            var sections = DomHelpers.GetSections(mainContentDiv);
+            var sections = TrackDomHelpers.GetSections(mainContentDiv);
 
-            output.KeyValues = DomHelpers.BuildKeyValues(sections);
+            output.KeyValues = TrackDomHelpers.BuildKeyValues(sections);
 
             //This is a div
 
-            var historyContent = DomHelpers.GetMainContentElement(dom, historySection);
+            var historyContent = TrackDomHelpers.GetMainContentElement(dom, historySection);
 
-            var allRows = DomHelpers.GetHistoryRows(historyContent);
+            var allRows = TrackDomHelpers.GetHistoryRows(historyContent);
 
-            output.Histories = DomHelpers.BuildStories(allRows);
+            output.Histories = TrackDomHelpers.BuildStories(allRows);
 
             return output;
 
