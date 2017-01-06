@@ -1,7 +1,132 @@
-﻿
-@{
-    ViewBag.Title = "Cotizador";
+﻿@{ ViewBag.Title = "Quotes"; }
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <legend>Estafeta Api Test</legend>
+            <h2>
+                Quotes
+            </h2>
+            <h3>End Point:</h3>
+            <pre><code>POST: Api/Quote/</code></pre>
+
+            <p>
+                Types: ["paquete","sobre"]
+            </p>
+            <p class="help-text">
+                If the type is set to "sobre", the api will ignore the package properties
+            </p>
+            
+            <p id="loading" style="display: none;">
+                Loading the awesome data.....
+            </p>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <h2>Request Sample 1</h2>
+                    <pre>  var sampleObj = {
+                    cTipoEnvio: "paquete",
+                    Tipo: "paquete",
+                    CPOrigen: 87140,
+                    CPDestino: 87500,
+                    Peso: 2,
+                    Alto: 20,
+                    Ancho: 19,
+                    Largo: 15
+                }</pre>
+                    <button type="button" id="btn" class="btn btn-primary">Send</button>
+                    
+                </div>
+                
+                <style>
+                    .responseData {
+                        background-color: #f5f5f5;
+                    }
+                </style>
+                <div class="col-xs-12 col-md-6">
+                    <h2>Response data</h2>
+                    <pre id="response"></pre>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <h2>Request Sample 2</h2>
+                    <pre>  var sampleObj = {
+                    cTipoEnvio: "sobre",
+                    Tipo: "sobre",
+                    CPOrigen: 87140,
+                    CPDestino: 87500,
+                    Peso: 2, //Will be ignored
+                    Alto: 20, //Will be ignored
+                    Ancho: 19, //Will be ignored
+                    Largo: 15 //Will be ignored
+                }</pre>
+                    <button type="button" id="btnSec" class="btn btn-primary">Send</button>
+                </div>
+
+                <style>
+                    .responseData {
+                        background-color: #f5f5f5;
+                    }
+                </style>
+                <div class="col-xs-12 col-md-6">
+                    <h2>Response data</h2>
+                    <pre id="responseSec"></pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        (function () {
+
+            var $btn = $("#btn");
+            $btn.click(function () {
+                $("#loading").show();
+                var url = "/Api/Quote";
+                var sampleObj = {
+                    cTipoEnvio: "paquete",
+                    Tipo: "paquete",
+                    CPOrigen: 87140,
+                    CPDestino: 87500,
+                    Peso: 2,
+                    Alto: 20,
+                    Ancho: 19,
+                    Largo: 15
+                }
+                $.post(url, sampleObj, function (response) {
+                    $("#response").append(JSON.stringify(response, null, "\t"));
+                    $("#loading").hide();
+                });
+            });
+
+            var $btnSec = $("#btnSec");
+            $btnSec.click(function () {
+                $("#loading").show();
+                var url = "/Api/Quote";
+                var sampleObj = {
+                    cTipoEnvio: "sobre",
+                    Tipo: "sobre",
+                    CPOrigen: 87140,
+                    CPDestino: 87500,
+                    Peso: 2,
+                    Alto: 20,
+                    Ancho: 19,
+                    Largo: 15
+                }
+                $.post(url, sampleObj, function (response) {
+                    $("#responseSec").append(JSON.stringify(response, null, "\t"));
+                    $("#loading").hide();
+                });
+            });
+
+
+        })();
+
+    </script>
 }
-
-<h2>Waaaaaait for it!</h2>
-

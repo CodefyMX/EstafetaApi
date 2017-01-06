@@ -1,4 +1,4 @@
-﻿@{ ViewBag.Title = "Home Page"; }
+﻿@{ ViewBag.Title = "Tracking"; }
 
 
 <div class="container">
@@ -11,7 +11,7 @@
 
             <h3>End Point:</h3>
 
-            <pre><code>/Api/Rastreo/?codigo=[trackCode]&tipo=[type]</code></pre>
+            <pre><code>GET: /Api/Track/?codigo=[trackCode]&tipo=[type]</code></pre>
 
 
 
@@ -67,7 +67,7 @@
                 var code = $("#code").val();
                 var option = $("#option").val();
                 $("#loading").show();
-                var url = "/Api/Rastreo/?codigo=" + code + "&tipo=" + option;
+                var url = "/Api/Track/?codigo=" + code + "&tipo=" + option;
                 $.getJSON(url, function (response) {
                     $("#loading").hide();
                     $("#response").text("");

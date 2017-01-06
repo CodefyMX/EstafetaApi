@@ -4,9 +4,9 @@ namespace EstafetaApi.Experiments.Outputs
 {
     public class EstafetaQuoteOutput
     {
-        public string From { get; set; }
-        public string To { get; set; }
-        public List<QuoteInfo> QuoteInfos { get; set; }
+        public int From { get; set; }
+        public int To { get; set; }
+        public List<QuoteInfo> QuoteInfos { get; set; } = new List<QuoteInfo>();
     }
 
     public class QuoteInfo
@@ -15,7 +15,7 @@ namespace EstafetaApi.Experiments.Outputs
         public Rate Rate { get; set; } = new Rate();
         public string ExtraCharges { get; set; }
         public string Total { get; set; }
-        public OverWeight OverWeight { get; set; }
+        public OverWeight OverWeight { get; set; } = new OverWeight();
 
     }
 

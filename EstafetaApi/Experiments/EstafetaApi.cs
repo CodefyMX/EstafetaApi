@@ -42,7 +42,7 @@ namespace EstafetaApi.Experiments
         public async Task<EstafetaQuoteOutput> Quote(EstafetaQuoteInput input)
         {
             var domAnalyzer = new DomAnalyzer();
-            var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(input, QuoteUrl, new MediaTypeHeaderValue("application/x-www-form-urlencoded")));
+            var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(input, QuoteUrl, new MediaTypeHeaderValue("application/json")));
             return objResult;
         }
 
