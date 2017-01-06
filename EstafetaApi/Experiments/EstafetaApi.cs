@@ -43,7 +43,7 @@ namespace EstafetaApi.Experiments
         {
             var domAnalyzer = new DomAnalyzer();
             var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(input, QuoteUrl, new MediaTypeHeaderValue("application/x-www-form-urlencoded")));
-            return new EstafetaQuoteOutput();
+            return objResult;
         }
 
         private async Task<string> GetContentFromUrl<T>(T postObj, string url, MediaTypeHeaderValue header)

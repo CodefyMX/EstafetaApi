@@ -37,7 +37,7 @@ namespace EstafetaApi.Experiments
 
 
 
-        public object GetQuoteResutsFromHtml(string fullHtml)
+        public EstafetaQuoteOutput GetQuoteResutsFromHtml(string fullHtml)
         {
             throw new System.NotImplementedException();
         }
