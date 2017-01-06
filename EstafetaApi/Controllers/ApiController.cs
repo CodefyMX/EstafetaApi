@@ -23,7 +23,11 @@ namespace EstafetaApi.Controllers
                     return Json(result, JsonRequestBehavior.AllowGet);
                 case "dhl":
                     //Todo: I think it will be easier, they are good fellas, they provided us this gift
+
+                    //Track
                     //http://www.dhl.com.mx/shipmentTracking?AWB=[DaTrackingCode]&countryCode=mx&languageCode=es
+                    //Quote
+                    //http://dct.dhl.com/data/quotation/?dtbl=N&declVal=500&declValCur=MXN&wgtUom=kg&dimUom=cm&noPce=1&wgt0=0.1&w0=20&l0=10&h0=50&shpDate=2017-01-06&orgCtry=MX&orgCity=&orgSub=&orgZip=87140&dstCtry=MX&dstCity=&dstSub=&dstZip=87500
                     throw new NotImplementedException();
                 default:
                     throw new ArgumentOutOfRangeException();
