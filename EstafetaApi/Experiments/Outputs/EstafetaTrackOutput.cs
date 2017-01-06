@@ -5,9 +5,8 @@ namespace EstafetaApi.Experiments.Outputs
     public class EstafetaTrackOutput
     {
         public EstafetaTrackObj EstafetaTrackObj { get; set; } = new EstafetaTrackObj();
-        //public List<KeyValue> KeyValues { get; set; } = new List<KeyValue>();
         public List<History> Histories { get; set; } = new List<History>();
-        public List<KeyValue> OrderProperties { get; set; } = new List<KeyValue>();
+        public OrderProperties OrderProperties { get; set; } = new OrderProperties();
     }
 
     public class EstafetaTrackObj
@@ -25,6 +24,16 @@ namespace EstafetaApi.Experiments.Outputs
         public string EstimatedDeliveryDate { get; set; }
         public string ROrderCode { get; set; }
         public string RDate { get; set; }
+    }
+
+    public class OrderProperties
+    {
+        public string DeliveryType { get; set; }
+        public string Dimensions { get; set; }
+        public string Weight { get; set; }
+        public string VolumetricWeight { get; set; }
+        public string ClientReference { get; set; }
+
     }
     public class History
     {

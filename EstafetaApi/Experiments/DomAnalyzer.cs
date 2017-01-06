@@ -8,6 +8,7 @@ namespace EstafetaApi.Experiments
     {
         private string mainSection = "#rastreoContent";
         private string historySection = ".tablaIconografica2"; // lol
+        private string orderProperties = ".tablaIconografica";
         //16 cols 
         public EstafetaTrackOutput Get22TrackInfoFromHtml(string fullHtml)
         {
@@ -29,9 +30,20 @@ namespace EstafetaApi.Experiments
 
             var historyContent = TrackDomHelpers.GetMainContentElement(dom, historySection);
 
+            //Every row has a td that has a table
             var allRows = TrackDomHelpers.GetHistoryRows(historyContent);
 
+
+
             output.Histories = TrackDomHelpers.BuildStories(allRows);
+
+            var orderPropertiesContent = TrackDomHelpers.GetMainContentElement(dom, orderProperties);
+
+            var orderPropertiesTables = TrackDomHelpers.GetOrderPropertiesRows(orderPropertiesContent);
+
+            output.OrderProperties = TrackDomHelpers.GetOrderProperties(orderPropertiesTables);
+
+
 
             return output;
 

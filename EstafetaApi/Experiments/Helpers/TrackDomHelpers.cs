@@ -175,13 +175,72 @@ namespace EstafetaApi.Experiments.Helpers
                     colAcum = colAcum + 1;
                 }
             }
-            foreach (var table in sections)
-            {
-
-            }
             return obj;
         }
 
+        public static List<CQ> GetOrderPropertiesRows(CQ orderPropertiesContent)
+        {
+            var cqList = new List<CQ>();
 
+            var tables = orderPropertiesContent.Find("table.tablaDatos");
+            foreach (var table in tables)
+            {
+                var domObjs = CQ.Create(table.InnerHTML)["tr"].ToList();
+                foreach (var domObject in domObjs)
+                {
+                    cqList.Add(CQ.Create(domObject));
+                }
+            }
+
+            return cqList;
+        }
+
+        public static OrderProperties GetOrderProperties(List<CQ> orderPropertiesRows)
+        {
+            var realIndex = 0;
+            var colAcum = 0;
+
+            var orderProperties = new OrderProperties();
+
+            foreach (var orderPropertiesRow in orderPropertiesRows)
+            {
+                var tds = orderPropertiesRow["td.dos"];
+
+                for (int i = 0; i < tds.Length; i++)
+                {
+                    realIndex = colAcum;
+                    var value = tds[i].InnerText;
+                    value = value.Replace("\n", "");
+                    value = value.Replace("  ", "");
+
+                    //0 Type
+                    //1 Dimension
+                    //2 Weight
+                    //3 VolumetricWeight
+                    //4 ClientReference
+
+                    switch (realIndex)
+                    {
+                        case 0:
+                            orderProperties.DeliveryType = value;
+                            break;
+                        case 1:
+                            orderProperties.Dimensions = value;
+                            break;
+                        case 2:
+                            orderProperties.Weight = value;
+                            break;
+                        case 3:
+                            orderProperties.VolumetricWeight = value;
+                            break;
+                        case 4:
+                            orderProperties.ClientReference = value;
+                            break;
+                    }
+                    colAcum = colAcum + 1;
+                }
+            }
+            return orderProperties;
+        }
     }
 }
