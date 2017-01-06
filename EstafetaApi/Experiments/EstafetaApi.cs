@@ -42,7 +42,7 @@ namespace EstafetaApi.Experiments
         public async Task<EstafetaQuoteOutput> Quote(EstafetaQuoteInput input)
         {
             var domAnalyzer = new DomAnalyzer();
-            var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(input, QuoteUrl, new MediaTypeHeaderValue("text/html")));
+            var objResult = domAnalyzer.GetQuoteResutsFromHtml(await GetContentFromUrl(input, QuoteUrl, new MediaTypeHeaderValue("application/x-www-form-urlencoded")));
             return new EstafetaQuoteOutput();
         }
 
@@ -53,8 +53,7 @@ namespace EstafetaApi.Experiments
             var buffer = System.Text.Encoding.UTF8.GetBytes(obj);
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = header;
-
-            var result = await httpClient.PostAsync(TrackUrl, byteContent);
+            var result = await httpClient.PostAsync(url, byteContent);
             result.EnsureSuccessStatusCode();
             return await result.Content.ReadAsStringAsync();
         }
