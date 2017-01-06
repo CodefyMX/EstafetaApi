@@ -52,6 +52,7 @@ namespace EstafetaApi.Experiments
                 var quoteInfo = new QuoteInfo();
                 for (int i = 0; i < tds.Count; i++)
                 {
+                    //Working on 06-01-2017
                     //0 Weight
                     //--Rates--
                     //1 Guide
