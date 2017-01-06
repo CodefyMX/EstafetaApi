@@ -14,7 +14,7 @@ namespace EstafetaApi.Controllers
             var result = await GetEstafetaResult(codigo, tipo);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public async Task<JsonResult> Track(string codigo, string brand, int tipo = 2)
+        public async Task<JsonResult> TrackWithBrand(string codigo, string brand, int tipo = 2)
         {
             switch (brand)
             {
