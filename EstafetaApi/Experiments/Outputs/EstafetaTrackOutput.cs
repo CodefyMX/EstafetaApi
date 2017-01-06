@@ -5,7 +5,7 @@ namespace EstafetaApi.Experiments.Outputs
     public class EstafetaTrackOutput
     {
         public EstafetaTrackObj EstafetaTrackObj { get; set; } = new EstafetaTrackObj();
-        public List<KeyValue> KeyValues { get; set; } = new List<KeyValue>();
+        //public List<KeyValue> KeyValues { get; set; } = new List<KeyValue>();
         public List<History> Histories { get; set; } = new List<History>();
         public List<KeyValue> OrderProperties { get; set; } = new List<KeyValue>();
     }
@@ -32,6 +32,9 @@ namespace EstafetaApi.Experiments.Outputs
         public string Place { get; set; }
         public string Comments { get; set; }
     }
+    /// <summary>
+    /// This should be called PeriUglyfierBonanza
+    /// </summary>
     public class KeyValue
     {
         public string Key { get; set; }

@@ -53,20 +53,23 @@ namespace EstafetaApi.Experiments.Helpers
                 var history = new History();
                 for (int i = 0; i < tds.Length; i++)
                 {
+                    var value = tds[i].InnerText;
+                    value = value.Replace("\n", "");
+                    value = value.Replace("  ", "");
                     //Date
                     if (i == 0)
                     {
-                        history.Date = tds[i].InnerText;
+                        history.Date = value;
                     }
                     //Place
                     if (i == 1)
                     {
-                        history.Place = tds[i].InnerText;
+                        history.Place = value;
                     }
                     //Comments
                     if (i == 2)
                     {
-                        history.Comments = tds[i].InnerText;
+                        history.Comments = value;
                     }
                 }
                 histories.Add(history);
@@ -82,7 +85,7 @@ namespace EstafetaApi.Experiments.Helpers
                 //Get the table
                 var table = sections[i];
                 //Get the table columns
-                var columns = TrackDomHelpers.GetColumns(CQ.Create(table));
+                var columns = GetColumns(CQ.Create(table));
 
                 foreach (var domObject in columns)
                 {
@@ -100,6 +103,83 @@ namespace EstafetaApi.Experiments.Helpers
             return keyValues;
         }
 
+        public static EstafetaTrackObj BuildKeyValuesObjectStrategy(List<IDomObject> sections)
+        {
+            var obj = new EstafetaTrackObj();
+            var realIndex = 0;
+            var colAcum = 0;
+            for (int tIndex = 0; tIndex < sections.Count; tIndex++)
+            {
+                //Get the table columns
+                var columns = GetColumns(CQ.Create(sections[tIndex]));
+
+                //Working on 06-01-2017
+                //0 GuideNumber
+                //1 TrackCode
+                //2 Origin
+                //3 Destiny
+                //4 CpDestiny
+                //5 ServiceStatus
+                //6 ReceivedBy
+                //7 Service
+                //8 DeliveryTime
+                //9 TypeOfDelivery
+                //10 DeliveryDate 
+                for (int i = 0; i < columns.Count; i++)
+                {
+                    var value = columns[i][".dato"].Text().Trim();
+                    value = value.Replace("\n", "");
+                    value = value.Replace("  ", "");
+                    realIndex = colAcum;
+
+                    switch (realIndex)
+                    {
+                        case 0:
+                            obj.GuideNumber = value;
+                            break;
+                        case 1:
+                            obj.TrackNumber = value;
+                            break;
+                        case 2:
+                            obj.Origin = value;
+                            break;
+                        case 3:
+                            obj.Destination = value;
+                            break;
+                        case 4:
+                            obj.CpDestiny = value;
+                            break;
+                        case 5:
+                            obj.ServiceStatus = value;
+                            break;
+                        case 6:
+
+                            //Clean string = 
+                            var withOutCFirma = value.Replace("Consulta firma", "");
+                            obj.ReceivedBy = withOutCFirma.Trim();
+                            break;
+                        case 7:
+                            obj.Service = value;
+                            break;
+                        case 8:
+                            obj.DeliveryDate = value;
+                            break;
+                        case 9:
+                            obj.TypeOfDelivery = value;
+                            break;
+                        case 10:
+                            obj.EstimatedDeliveryDate = value;
+                            break;
+                    }
+                    colAcum = colAcum + 1;
+                }
+            }
+            foreach (var table in sections)
+            {
+
+            }
+            return obj;
+        }
 
 
     }
