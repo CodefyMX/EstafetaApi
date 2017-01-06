@@ -127,6 +127,7 @@ namespace EstafetaApi.Experiments.Helpers
                 //10 DeliveryDate 
                 for (int i = 0; i < columns.Count; i++)
                 {
+                    //Clean string
                     var value = columns[i][".dato"].Text().Trim();
                     value = value.Replace("\n", "");
                     value = value.Replace("  ", "");
@@ -154,7 +155,7 @@ namespace EstafetaApi.Experiments.Helpers
                             break;
                         case 6:
 
-                            //Clean string = 
+                            //Remove text
                             var withOutCFirma = value.Replace("Consulta firma", "");
                             obj.ReceivedBy = withOutCFirma.Trim();
                             break;
